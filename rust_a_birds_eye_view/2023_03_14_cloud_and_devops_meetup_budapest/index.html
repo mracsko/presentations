@@ -1,0 +1,1917 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>Rust - A Bird's Eye View</title>
+
+    <link rel="stylesheet" href="reveal.js-4.4.0/dist/reset.css">
+    <link rel="stylesheet" href="reveal.js-4.4.0/dist/reveal.css">
+    <link rel="stylesheet" href="reveal.js-4.4.0/dist/theme/black.css">
+
+    <!-- Theme used for syntax highlighted code -->
+    <link rel="stylesheet" href="reveal.js-4.4.0/plugin/highlight/monokai.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <div class="aligned">
+                <img class="white-bg" src="assets/rust-logo-128x128-blk.png"><span class="aligned"><h1>Rust</h1></span>
+            </div>
+            <br/>
+            <br/>
+            <h3>A Bird's Eye View</h3>
+            <br/>
+            <h4>Or a crab's (🦀) eye view?</h4>
+            <br/>
+            <img src="assets/ferris.png">
+            <br/>
+            <p>
+                <small>14th March 2023</small>
+                <br/>
+                <small>Cloud & DevOps meetup (EPAM Systems Budapest Office)</small>
+            </p>
+            <aside class="notes">
+                <ul>
+                    <li>Goal is a brief introduction, to catch interest</li>
+                    <li>Not much coding or details in the presentation</li>
+                </ul>
+
+                References:
+                <ul>
+                    <li>Rust Logo (2023-03-11): https://github.com/rust-lang/rust-artwork</li>
+                    <li>Epam Logo (2023-03-11): https://www.epam.com/</li>
+                    <li>Ferris (2023-03-11): https://rustacean.net/</li>
+                </ul>
+            </aside>
+        </section>
+        <section>
+            <h1><code>whoami</code></h1>
+            <br/>
+            <br/>
+            <div class="container">
+
+                <div class="col">
+                    <img src="assets/profile-pic.jpg" width="30%">
+                </div>
+
+                <div class="col">
+                    <div class="left">
+                        <h3>Balazs Sandor Mracsko</h3>
+                        <h4>Delivery Manager <a href="https://twitter.com/EPAMSystems">@EPAMSystems</a></h4>
+                        <ul>
+                            <li>Solution Architect</li>
+                            <li>DevOps Engineer</li>
+                            <li>Java Developer</li>
+                            <li>Kotlin Developer</li>
+                            <li>Rust Developer</li>
+                            <li>etc.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <aside class="notes">
+                <ul>
+                    <li>I am not a rust expert, but would like to be</li>
+                </ul>
+            </aside>
+        </section>
+        <section>
+            <h1>Agenda</h1>
+            <ul>
+                <li>Rust History</li>
+                <li>Why Rust?</li>
+                <li>Are we there yet?</li>
+                <li>What's the catch?</li>
+            </ul>
+        </section>
+        <section>
+            <h1>Rust History</h1>
+            <ul>
+                <li>2006 - Personal project of Graydon Hoare (Mozilla Research)</li>
+                <li>2009 - Mozilla began sponsoring the project</li>
+                <li>2015 - <strong>(15th May) Rust 1.0</strong></li>
+                <li>2020 - Mozilla layoffs</li>
+                <li>2021 - Rust foundation</li>
+            </ul>
+            <aside class="notes">
+                References:
+                <ul>
+                    <li>https://en.wikipedia.org/wiki/Rust_(programming_language)</li>
+                </ul>
+            </aside>
+        </section>
+        <section>
+            <section>
+                <h1>Why Rust?</h1>
+                <img src="assets/blazingly-fast.png" width="50%" height="50%"/>
+                <aside class="notes">
+                    <ul>
+                        <li>Not an extensive list, just some personal favorites</li>
+                    </ul>
+
+                    References:
+                    <ul>
+                        <li>Image source (2023-03-11):
+                            https://br.ifunny.co/picture/software-written-in-rust-starterpack-readme-md-blazingly-fast-tnAUaP2G8
+                        </li>
+                    </ul>
+                </aside>
+            </section>
+            <section>
+                <h2>Hello World</h2>
+                <br>
+                <pre><code class="language-rust" data-trim data-line-numbers data-noescape>
+fn main() {
+    println!("Hello, world!");
+}
+            </code></pre>
+                <br/>
+                <pre><code class="language-plaintext" data-trim data-line-numbers data-noescap>
+Hello, world!
+                </code></pre>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h2>Why Rust? - Performance</h2>
+                <img src="assets/blazingly-fast-2.jpg"/>
+                <aside class="notes">
+                    <ul>
+                        <li>Is it really that fast?</li>
+                    </ul>
+
+                    References:
+                    <ul>
+                        <li>Image source (2023-03-11):
+                            https://www.reddit.com/r/rustjerk/comments/sqy221/anything_built_in_rust_is_blazingly_fast_by/
+                        </li>
+                    </ul>
+                </aside>
+            </section>
+            <section>
+                <img src="assets/rust-site-2023-03-05-perf.png" width="85%" height="85%"/>
+                <img src="assets/wiki-rust-2023-03-05-perf.png" width="85%" height="85%"/>
+                <aside class="notes">
+                    <ul>
+                        <li>Rust website mentions performance first</li>
+                        <li>Wikipedia mentions performance in the second sentence</li>
+                        <li>Okay, but compared to what?</li>
+                        <li>Benchmarks are always specific</li>
+                    </ul>
+
+                    References:
+                    <ul>
+                        <li>Screenshot (2023-03-11): https://www.rust-lang.org/</li>
+                        <li>Screenshot (2023-03-11): https://en.wikipedia.org/wiki/Rust_(programming_language)</li>
+                    </ul>
+                </aside>
+            </section>
+            <section>
+                <h3>Java, Python, JavaScript, C#, PHP, etc.</h3>
+                <p><a href="https://filia-aleks.medium.com/aws-lambda-battle-2021-performance-comparison-for-all-languages-c1b441005fd1">AWS
+                    Lambda battle 2021: performance comparison for all languages (cold and warm start)</a></p>
+                <img src="assets/aws-lambda-cold-start.png"/>
+                <aside class="notes">
+                    <ul>
+                        <li>It is really fast, compared to high level languages, like Java, Python, JavaScript, C#, PHP, etc.</li>
+                    </ul>
+
+                    References:
+                    <ul>
+                        <li>Image source (2023-03-11):
+                            https://filia-aleks.medium.com/aws-lambda-battle-2021-performance-comparison-for-all-languages-c1b441005fd1
+                        </li>
+                    </ul>
+                </aside>
+            </section>
+            <section>
+                <h3>Java, Python, JavaScript, C#, PHP, etc.</h3>
+                <p><a href="https://filia-aleks.medium.com/aws-lambda-battle-2021-performance-comparison-for-all-languages-c1b441005fd1">AWS
+                    Lambda battle 2021: performance comparison for all languages (cold and warm start)</a></p>
+                <img src="assets/aws-lambda-runs.png"/>
+                <aside class="notes">
+                    <ul>
+                        <li>Most of the benchmarks have similar results</li>
+                    </ul>
+
+                    References:
+                    <ul>
+                        <li>Image source (2023-03-11):
+                            https://filia-aleks.medium.com/aws-lambda-battle-2021-performance-comparison-for-all-languages-c1b441005fd1
+                        </li>
+                    </ul>
+                </aside>
+            </section>
+            <section>
+                <img src="assets/go-logo.png" width="20%" height="20%"/>
+                <p><a href="https://benchmarksgame-team.pages.debian.net/benchmarksgame/fastest/rust-go.html">The Computer Language 23.03
+                    Benchmarks Game - Rust versus Go fastest performance</a></p>
+                <img src="assets/rust-vs-go-1.png" width="30%" height="30%"/>
+                <img src="assets/rust-vs-go-2.png" width="30%" height="30%"/>
+                <img src="assets/rust-vs-go-3.png" width="30%" height="30%"/>
+                <aside class="notes">
+                    <ul>
+                        <li>Rust is frequently compared with Go</li>
+                        <li>Previous example (AWS) shows similar results as Rust</li>
+                        <li>Usually the results are better with Rust</li>
+                        <li>Worth to mention the memory usage differences</li>
+                    </ul>
+
+                    References:
+                    <ul>
+                        <li>Screenshots (2023-03-11): https://benchmarksgame-team.pages.debian.net/benchmarksgame/fastest/rust-go.html</li>
+                        <li>Go logo (2023-03-11): https://commons.wikimedia.org/wiki/File:Go_Logo_Blue.svg</li>
+                    </ul>
+                </aside>
+            </section>
+            <section>
+                <h3>C</h3>
+                <p><a href="https://levelup.gitconnected.com/which-is-faster-rust-or-c-lets-find-out-who-is-the-usain-bolt-87495c774c8">Which
+                    is faster: Rust or C? Let’s find out who is the Usain Bolt of programming world.</a></p>
+                <img src="assets/rust-vs-c.png" width="40%" height="40%"/>
+                <aside class="notes">
+                    <ul>
+                        <li>Is it fast? Yes</li>
+                        <li>Is it faster than C/C++? Not really...</li>
+                    </ul>
+
+                    References:
+                    <ul>
+                        <li>Image source (2023-03-11):
+                            https://levelup.gitconnected.com/which-is-faster-rust-or-c-lets-find-out-who-is-the-usain-bolt-87495c774c8
+                        </li>
+                    </ul>
+                </aside>
+            </section>
+            <section>
+                <h3>C++</h3>
+                <p><a href="https://benchmarksgame-team.pages.debian.net/benchmarksgame/fastest/rust-gpp.html">The Computer Language 23.03
+                    Benchmarks Game - Rust versus C++ g++ fastest performance</a></p>
+                <img src="assets/rust-vs-cpp-1.png" width="30%" height="30%"/>
+                <img src="assets/rust-vs-cpp-2.png" width="30%" height="30%"/>
+                <img src="assets/rust-vs-cpp-3.png" width="30%" height="30%"/>
+                <aside class="notes">
+
+                    References:
+                    <ul>
+                        <li>Screenshots (2023-03-11): https://benchmarksgame-team.pages.debian.net/benchmarksgame/fastest/rust-gpp.html</li>
+                    </ul>
+                </aside>
+            </section>
+            <!--
+                https://filia-aleks.medium.com/aws-lambda-battle-2021-performance-comparison-for-all-languages-c1b441005fd1
+                https://levelup.gitconnected.com/which-is-faster-rust-or-c-lets-find-out-who-is-the-usain-bolt-87495c774c8
+            -->
+        </section>
+        <section>
+            <section>
+                <h2>Why Rust? - Safety</h2>
+                <h1>⚠️</h1>
+            </section>
+            <section>
+                <h3>Memory safety</h3>
+                <img src="assets/memory-safe.png" width="40%" height="40%"/>
+                <aside class="notes">
+                    <ul>
+                        <li>What we talk about, is memory safety</li>
+                    </ul>
+
+                    References:
+                    <ul>
+                        <li>Image generated with: https://openai.com/product/dall-e-2</li>
+                    </ul>
+                </aside>
+            </section>
+            <section>
+                <img src="assets/rust-site-2023-03-05-safety.png" width="85%" height="85%"/>
+                <img src="assets/wiki-rust-2023-03-05-safety.png" width="85%" height="85%"/>
+                <aside class="notes">
+                    <ul>
+                        <li>Mentioned on the Rust website and on Wikipedia</li>
+                    </ul>
+
+                    References:
+                    <ul>
+                        <li>Screenshot (2023-03-11): https://www.rust-lang.org/</li>
+                        <li>Screenshot (2023-03-11): https://en.wikipedia.org/wiki/Rust_(programming_language)</li>
+                    </ul>
+                </aside>
+            </section>
+            <section>
+                <h3>⚠️⚠️⚠️Memory safety is extremely important⚠️⚠️⚠️</h3>
+                <br/>
+                <a href="https://msrc.microsoft.com/blog/2019/07/why-rust-for-safe-systems-programming/">Microsoft: Why Rust for safe
+                    systems programming</a>
+                <blockquote cite="https://msrc.microsoft.com/blog/2019/07/why-rust-for-safe-systems-programming/">
+                    "... roughly 70% of the security issues that the MSRC assigns a CVE to are memory safety issues. This means that if that
+                    software had been written in Rust, 70% of these security issues would most likely have been eliminated."
+                </blockquote>
+                <br/>
+                <a href="https://hacks.mozilla.org/2019/02/rewriting-a-browser-component-in-rust/">Mozilla: Implications of Rewriting a
+                    Browser Component in Rust</a>
+                <blockquote cite="https://hacks.mozilla.org/2019/02/rewriting-a-browser-component-in-rust/">
+                    "Over the course of its lifetime, there have been 69 security bugs in Firefox’s style component. If we’d had a time
+                    machine and could have written this component in Rust from the start, 51 (73.9%) of these bugs would not have been
+                    possible. While Rust makes it easier to write better code, it’s not foolproof."
+                </blockquote>
+                <aside class="notes">
+                    <ul>
+                        <li>Memory safety is important, so this is why GC worth it in Java, Python, Go, etc.</li>
+                        <li>Microsoft: ~70% memory issues related CVE</li>
+                        <li>Mozilla: 51 out of 69 (~74%) security bugs would not have been possible if they use Rust</li>
+                    </ul>
+                </aside>
+            </section>
+            <section>
+                <h3>Memory Management Model</h3>
+                <br/>
+                <br/>
+                <div class="container">
+
+                    <div class="col">
+                        <table>
+                            <thead>
+                            <tr>
+                                <th>Language</th>
+                                <th>Memory Management</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>Java</td>
+                                <td>Garbage collection</td>
+                            </tr>
+                            <tr>
+                                <td>Python</td>
+                                <td>Reference counting & Garbage collection</td>
+                            </tr>
+                            <tr>
+                                <td>JavaScript</td>
+                                <td>Garbage collection</td>
+                            </tr>
+                            <tr>
+                                <td>C#</td>
+                                <td>Garbage collection</td>
+                            </tr>
+                            <tr>
+                                <td>C / C++</td>
+                                <td>Manual memory management</td>
+                            </tr>
+                            <tr>
+                                <td>Swift</td>
+                                <td>Reference counting</td>
+                            </tr>
+                            <tr>
+                                <td>Go</td>
+                                <td>Garbage collection</td>
+                            </tr>
+                            <tr>
+                                <td>Rust</td>
+                                <td>Ownership and borrowing & Optional reference counting</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="col" style="padding-left: 100px">
+                        <div class="left">
+                            <h4>Manual Memory Management Issues</h4>
+                            <ul>
+                                <li>Buffer overflow</li>
+                                <li>Use after free</li>
+                                <li>Wild pointer</li>
+                                <li>Double free</li>
+                                <li>Invalid free</li>
+                                <li>etc.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <aside class="notes">
+                    <ul>
+                        <li>Examples only, not a full list</li>
+                    </ul>
+
+                    References:
+                    <ul>
+                        <li>https://en.wikipedia.org/wiki/Java_(programming_language)</li>
+                        <li>https://en.wikipedia.org/wiki/Python_(programming_language)</li>
+                        <li>https://en.wikipedia.org/wiki/C_Sharp_(programming_language)</li>
+                        <li>https://en.wikipedia.org/wiki/Swift_(programming_language)</li>
+                        <li>https://en.wikipedia.org/wiki/Go_(programming_language)</li>
+                        <li>https://developer.mozilla.org/en-US/docs/Web/JavaScript/Memory_Management</li>
+                        <li>https://en.wikipedia.org/wiki/Manual_memory_management</li>
+                        <li>https://en.wikipedia.org/wiki/Memory_safety</li>
+                    </ul>
+                </aside>
+            </section>
+            <section>
+                <h3>Ownership</h3>
+                <br/>
+                <a href="https://doc.rust-lang.org/book/ch04-00-understanding-ownership.html">The Rust Programming Language Book, Chapter:
+                    Understanding Ownership</a>
+                <br/>
+                <br/>
+                <blockquote cite="https://doc.rust-lang.org/book/ch04-00-understanding-ownership.html">
+                    "Ownership is Rust’s most unique feature and has deep implications for the rest of the language. It enables Rust to make
+                    memory safety guarantees without needing a garbage collector, so it’s important to understand how ownership works. In
+                    this chapter, we’ll talk about ownership as well as several related features: borrowing, slices, and how Rust lays data
+                    out in memory."
+                </blockquote>
+                <br/>
+                <blockquote cite="https://doc.rust-lang.org/book/ch04-01-what-is-ownership.html">
+                    <strong>Ownership Rules</strong>
+                    <ul>
+                        <li>Each value in Rust has an owner.</li>
+                        <li>There can only be one owner at a time.</li>
+                        <li>When the owner goes out of scope, the value will be dropped.</li>
+                    </ul>
+                </blockquote>
+                <aside class="notes">
+                    <ul>
+                        <li>Long topic, worth a separate presentation on its own</li>
+                    </ul>
+                </aside>
+            </section>
+            <section>
+                <h3>Ownership example</h3>
+                <br/>
+                <pre><code class="language-rust" data-trim data-line-numbers data-noescape>
+fn main() {
+    let hello = String::from("Hello, world!");
+    let hello2 = hello;
+    println!("{hello}");
+}
+                </code></pre>
+                <br/>
+                <pre><code class="language-plaintext" data-trim data-line-numbers data-noescap>
+error[E0382]: borrow of moved value: `hello`
+ --> src/main.rs:4:16
+  |
+2 |     let hello = String::from("Hello, world!");
+  |         ----- move occurs because `hello` has type `String`, which does not implement the `Copy` trait
+3 |     let hello2 = hello;
+  |                  ----- value moved here
+4 |     println!("{hello}");
+  |                ^^^^^ value borrowed here after move
+  |
+  = note: this error originates in the macro `$crate::format_args_nl` which comes from the expansion of the macro `println` (in
+Nightly builds, run with -Z macro-backtrace for more info)
+help: consider cloning the value if the performance cost is acceptable
+  |
+3 |     let hello2 = hello.clone();
+  |                       ++++++++
+                </code></pre>
+            </section>
+            <section>
+                <h3>Ownership example</h3>
+                <pre><code class="language-rust" data-trim data-line-numbers data-noescape>
+fn print_hello(name: String) {
+    println!("Hello, {name}!")
+}
+
+fn main() {
+    let world = String::from("world");
+    print_hello(world);
+    println!("{world}");
+}
+                </code></pre>
+                <pre><code class="language-plaintext" data-trim data-line-numbers data-noescape>
+error[E0382]: borrow of moved value: `world`
+ --> src/main.rs:8:16
+  |
+6 |     let world = String::from("world");
+  |         ----- move occurs because `world` has type `String`, which does not implement the `Copy` trait
+7 |     print_hello(world);
+  |                 ----- value moved here
+8 |     println!("{world}");
+  |                ^^^^^ value borrowed here after move
+  |
+note: consider changing this parameter type in function `print_hello` to borrow instead if owning the value isn't necessary
+ --> src/main.rs:1:22
+  |
+1 | fn print_hello(name: String) {
+  |    -----------       ^^^^^^ this parameter takes ownership of the value
+  |    |
+  |    in this function
+  = note: this error originates in the macro `$crate::format_args_nl` which comes from the expansion of the macro `println` (in
+Nightly builds, run with -Z macro-backtrace for more info)
+help: consider cloning the value if the performance cost is acceptable
+  |
+7 |     print_hello(world.clone());
+  |                      ++++++++
+                </code></pre>
+            </section>
+            <section>
+                <h3>Borrowing</h3>
+                <br/>
+                <pre><code class="language-rust" data-trim data-line-numbers data-noescape>
+fn print_hello(name: &String) {
+    println!("Hello, {name}!")
+}
+
+fn main() {
+    let world = String::from("world");
+    print_hello(&world);
+    println!("{world}");
+}
+                </code></pre>
+                <br/>
+                <pre><code class="language-plaintext" data-trim data-line-numbers data-noescape>
+Hello, world!
+world
+                </code></pre>
+            </section>
+            <section>
+                <h3><a href="https://doc.rust-lang.org/nomicon/">The Rustonomicon - The Dark Arts of Unsafe Rust</a></h3>
+                <br/>
+                <img src="assets/unsafe.png"/>
+                <br/>
+                <br/>
+                <pre><code class="language-rust" data-trim data-line-numbers data-noescape>
+unsafe {
+    //...
+}
+                 </code></pre>
+                <aside class="notes">
+                    <ul>
+                        <li>You can opt-out of ownership and borrow checking</li>
+                        <li>Deref raw pointers</li>
+                        <li>Dangerous code is isolated, helps review</li>
+                    </ul>
+
+                    References:
+                    <ul>
+                        <li>Image source (2023-03-11): https://doc.rust-lang.org/nomicon/meet-safe-and-unsafe.html</li>
+                    </ul>
+                </aside>
+            </section>
+        </section>
+        <section>
+            <h2>Why Rust? - Fearless Concurrency</h2>
+            <img src="assets/concurrency.png" width="40%" height="40%"/>
+            <aside class="notes">
+                <ul>
+                    <li>Borrow checker helps with it too</li>
+                    <li>Cannot share references between threads</li>
+                </ul>
+
+                References:
+                <ul>
+                    <li>Image source (2023-03-11): https://www.reddit.com/r/ProgrammerHumor/comments/bzv8q4/parallelism_be_like/</li>
+                </ul>
+            </aside>
+        </section>
+        <section>
+            <h2>Why Rust? - Sustainability</h2>
+            <a href="https://aws.amazon.com/blogs/opensource/sustainability-with-rust/">Sustainability with Rust</a>
+            <br/>
+            <img src="assets/sustainability.png"/>
+            <aside class="notes">
+                <ul>
+                    <li>Due to better performance and resource consumption, less energy is required</li>
+                    <li>Again, specific numbers, reality can be different</li>
+                </ul>
+                References:
+                <ul>
+                    <li>Image source (2023-03-11): https://aws.amazon.com/blogs/opensource/sustainability-with-rust/</li>
+                </ul>
+            </aside>
+        </section>
+        <section>
+            <section>
+                <h2>Why Rust? - Error Messages</h2>
+                <br/>
+                <img src="assets/error-messages.png" width="50%" height="50%"/>
+                <aside class="notes">
+                    <ul>
+                        <li>Compiler error messages in Rust are awesome</li>
+                    </ul>
+
+                    References:
+                    <ul>
+                        <li>Image source (2023-03-11): https://www.reddit.com/r/ProgrammerHumor/comments/qpdyso/error_on_line_42/</li>
+                    </ul>
+                </aside>
+            </section>
+            <section>
+                <h3>Error Messages</h3>
+                <br/>
+                <pre><code class="language-rust" data-trim data-line-numbers data-noescape>
+fn main() {
+    println("Hello, world!");
+}
+                </code></pre>
+                <br/>
+                <pre><code class="language-plaintext" data-trim data-line-numbers data-noescape>
+error[E0423]: expected function, found macro `println`
+ --> src/main.rs:2:5
+  |
+2 |     println("Hello, world!");
+  |     ^^^^^^^ not a function
+  |
+help: use `!` to invoke the macro
+  |
+2 |     println!("Hello, world!");
+  |            +
+                </code></pre>
+                <aside class="notes">
+                    <ul>
+                        <li>Sometimes it provides easy solution</li>
+                    </ul>
+                </aside>
+            </section>
+            <section>
+                <h3>Error Messages</h3>
+                <a href="https://doc.rust-lang.org/book/ch16-03-shared-state.html">The Rust Programming Language Book, Chapter:
+                    Fearless Concurrency</a>
+                <br/>
+                <br/>
+                <pre><code class="language-plaintext" data-trim data-line-numbers data-noescape>
+error[E0277]: `Rc<Mutex<i32>>` cannot be sent between threads safely
+  --> src/main.rs:11:36
+   |
+11 |           let handle = thread::spawn(move || {
+   |                        ------------- ^------
+   |                        |             |
+   |  ______________________|_____________within this `[closure@src/main.rs:11:36: 11:43]`
+   | |                      |
+   | |                      required by a bound introduced by this call
+12 | |             let mut num = counter.lock().unwrap();
+13 | |
+14 | |             *num += 1;
+15 | |         });
+   | |_________^ `Rc<Mutex<i32>>` cannot be sent between threads safely
+   |
+   = help: within `[closure@src/main.rs:11:36: 11:43]`, the trait `Send` is not implemented for `Rc<Mutex<i32>>`
+note: required because it's used within this closure
+  --> src/main.rs:11:36
+   |
+11 |         let handle = thread::spawn(move || {
+   |                                    ^^^^^^^
+note: required by a bound in `spawn`
+                </code></pre>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h2>Why Rust? - Language Features</h2>
+                <img src="assets/ferris-orig.png"/>
+
+                <aside class="notes">
+                    <ul>
+                        <li>My personal favorites</li>
+                    </ul>
+
+                    References:
+                    <ul>
+                        <li>Rust Logo (2023-03-11): https://github.com/rust-lang/rust-artwork</li>
+                        <li>Ferris (2023-03-11): https://rustacean.net/</li>
+                    </ul>
+                </aside>
+            </section>
+            <section>
+                <h3>Error handling</h3>
+                <br/>
+                <pre><code class="language-rust" data-trim data-line-numbers data-noescape>
+pub enum Result<T, E> {
+    Ok(T),
+    Err(E),
+}</code></pre>
+            </section>
+            <section>
+                <h3>Error handling</h3>
+                <br/>
+                <pre><code class="language-rust" data-trim data-line-numbers data-noescape>
+fn main() {
+    let string = String::from("23");
+    let value = string.parse::&lti32&gt();
+    match value {
+        Ok(x) => println!("Parsed value: {x}"),
+        Err(_) => println!("Cannot parse integer from string: '{string}'"),
+    }
+}                </code></pre>
+                <br/>
+                <pre><code class="language-plaintext" data-trim data-line-numbers data-noescape>
+Parsed value: 23
+                </code></pre>
+            </section>
+            <section>
+                <h3>Error handling</h3>
+                <br/>
+                <pre><code class="language-rust" data-trim data-line-numbers data-noescape>
+fn main() {
+    let string = String::from("invalid value");
+    let value = string.parse::&lti32&gt();
+    match value {
+        Ok(x) => println!("Parsed value: {x}"),
+        Err(_) => println!("Cannot parse integer from string: '{string}'"),
+    }
+}
+                </code></pre>
+                <br/>
+                <pre><code class="language-plaintext" data-trim data-line-numbers data-noescape>
+Cannot parse integer from string: 'invalid value'
+                </code></pre>
+            </section>
+            <section>
+                <h3>There is no null</h3>
+                <br/>
+                <pre><code class="language-rust" data-trim data-line-numbers data-noescape>
+pub enum Option<T> {
+    None,
+    Some(T),
+}</code></pre>
+            </section>
+            <section>
+                <h3>Pattern matching</h3>
+                <br/>
+                <pre><code class="language-rust" data-trim data-line-numbers data-noescape>
+let x = 1;
+
+match x {
+    1 | 2 => println!("one or two"),
+    3 => println!("three"),
+    _ => println!("anything"),
+}</code></pre>
+                <aside class="notes">
+                    References:
+                    <ul>
+                        <li>Examples: https://doc.rust-lang.org/book/ch18-03-pattern-syntax.html</li>
+                    </ul>
+                </aside>
+            </section>
+            <section>
+                <h3>Pattern matching</h3>
+                <br/>
+                <pre><code class="language-rust" data-trim data-line-numbers data-noescape>
+let x = 'c';
+
+match x {
+    'a'..='j' => println!("early ASCII letter"),
+    'k'..='z' => println!("late ASCII letter"),
+    _ => println!("something else"),
+}</code></pre>
+                <aside class="notes">
+                    <ul>
+                        <li>Ranges</li>
+                    </ul>
+
+                    References:
+                    <ul>
+                        <li>Examples: https://doc.rust-lang.org/book/ch18-03-pattern-syntax.html</li>
+                    </ul>
+                </aside>
+            </section>
+            <section>
+                <h3>Pattern matching</h3>
+                <br/>
+                <pre><code class="language-rust" data-trim data-line-numbers data-noescape>
+let p = Point { x: 0, y: 7 };
+
+match p {
+    Point { x, y: 0 } => println!("On the x axis at {x}"),
+    Point { x: 0, y } => println!("On the y axis at {y}"),
+    Point { x, y } => {
+        println!("On neither axis: ({x}, {y})");
+    }
+}</code></pre>
+                <aside class="notes">
+                    References:
+                    <ul>
+                        <li>Examples: https://doc.rust-lang.org/book/ch18-03-pattern-syntax.html</li>
+                    </ul>
+                </aside>
+            </section>
+            <section>
+                <h3>Match expression</h3>
+                <br/>
+                <pre><code class="language-rust" data-trim data-line-numbers data-noescape>
+fn main() {
+    let string = String::from("invalid value");
+    let value = string.parse::<i32>();
+    let value = match value {
+        Ok(x) => x,
+        Err(_) => 0,
+    };
+    println!("Result: {value}");
+}
+                </code></pre>
+                <br/>
+                <pre><code class="language-plaintext" data-trim data-line-numbers data-noescape>
+Result: 0
+                </code></pre>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h2><a href="https://webassembly.org/">Why Rust? - WebAssembly</a></h2>
+                <br/>
+                <img class="white-bg" style="padding: 20px" src="assets/webassembly.png"/>
+                <br/>
+                <br/>
+                <p>WASM (WebAssembly) & WASI (WebAssembly System Interface)</p>
+                <aside class="notes">
+                    <ul>
+                        <li>Binary format for browsers (and server side)</li>
+                        <li>WASM is not just Rust, but Rust is heavily supporting and contributing</li>
+                    </ul>
+
+                    References:
+                    <ul>
+                        <li>Image source (2023-03-11): https://webassembly.org/</li>
+                    </ul>
+                </aside>
+            </section>
+            <section>
+                <h3><a href="https://yew.rs/">Yew</a></h3>
+                <br/>
+                <img src="assets/yew.png" width="5%"/>
+                <aside class="notes">
+                    <ul>
+                        <li>Web application framework</li>
+                        <li>Similar to React</li>
+                        <li>Lot of other frameworks</li>
+                    </ul>
+
+                    References:
+                    <ul>
+                        <li>Image source (2023-03-11): https://yew.rs/</li>
+                    </ul>
+                </aside>
+            </section>
+            <section>
+                <h3><a href="https://wasmtime.dev/">Wasmtime</a></h3>
+                <br/>
+                <pre><code class="language-rust" data-trim data-line-numbers data-noescape>
+fn main() {
+    println!("Hello, world!");
+}
+                </code></pre>
+                <br/>
+                <pre><code class="language-plaintext" data-trim data-line-numbers data-noescape>
+$ rustup target add wasm32-wasi
+$ rustc hello.rs --target wasm32-wasi
+$ wasmtime hello.wasm
+Hello, world!
+                </code></pre>
+                <aside class="notes">
+                    <ul>
+                        <li>Wasmtime runtime for server side execution</li>
+                    </ul>
+
+                    References:
+                    <ul>
+                        <li>Example: https://wasmtime.dev/</li>
+                    </ul>
+                </aside>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h2>Why Rust? - Build and dependency management</h2>
+                <br/>
+                <img src="assets/cargo.png" width="40%"/>
+            </section>
+            <section>
+                <h3>Dependency management</h3>
+                <pre><code class="language-toml" data-trim data-line-numbers data-noescape>
+[package]
+name = "hello_world"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+time = "0.1.12"
+regex = "0.1.41"</code></pre>
+                <aside class="notes">
+                    <ul>
+                        <li>Similar to Maven, Gradle, NPM, etc.</li>
+                    </ul>
+
+                    References:
+                    <ul>
+                        <li>Example: https://doc.rust-lang.org/cargo/guide/dependencies.html</li>
+                    </ul>
+                </aside>
+            </section>
+            <section>
+                <h3>Build</h3>
+                <pre><code class="language-plaintext" data-trim data-line-numbers data-noescape>
+$ cargo build
+      Updating crates.io index
+   Downloading memchr v0.1.5
+   Downloading libc v0.1.10
+   Downloading regex-syntax v0.2.1
+   Downloading memchr v0.1.5
+   Downloading aho-corasick v0.3.0
+   Downloading regex v0.1.41
+     Compiling memchr v0.1.5
+     Compiling libc v0.1.10
+     Compiling regex-syntax v0.2.1
+     Compiling memchr v0.1.5
+     Compiling aho-corasick v0.3.0
+     Compiling regex v0.1.41
+     Compiling hello_world v0.1.0 (file:///path/to/package/hello_world)</code></pre>
+                <aside class="notes">
+                    References:
+                    <ul>
+                        <li>Example: https://doc.rust-lang.org/cargo/guide/dependencies.html</li>
+                    </ul>
+                </aside>
+            </section>
+            <section>
+                <h3>Run</h3>
+                <pre><code class="language-plaintext" data-trim data-line-numbers data-noescape>
+$ cargo run
+   Running `target/hello_world`
+Did our date match? true</code></pre>
+                <aside class="notes">
+                    References:
+                    <ul>
+                        <li>Example: https://doc.rust-lang.org/cargo/guide/dependencies.html</li>
+                    </ul>
+                </aside>
+            </section>
+            <section>
+                <h3>Commands</h3>
+                <br/>
+                <ul>
+                    <li><code>cargo build</code></li>
+                    <li><code>cargo run</code></li>
+                    <li><code>cargo check</code></li>
+                    <li><code>cargo test</code></li>
+                    <li><code>cargo clean</code></li>
+                    <li><code>cargo doc</code></li>
+                    <li><code>cargo new</code></li>
+                    <li><code>cargo init</code></li>
+                    <li><code>cargo update</code></li>
+                    <li><code>cargo publish</code></li>
+                </ul>
+                <br/>
+                <br/>
+                <strong>etc.</strong>
+                <aside class="notes">
+                    <ul>
+                        <li>You can also create custom commands</li>
+                    </ul>
+                </aside>
+            </section>
+        </section>
+        <section>
+            <h1>Why Rust?</h1>
+            <br/>
+            <div class="container">
+                <div class="col">
+                    <ul>
+                        <li>Performance</li>
+                        <li>Memory safety</li>
+                        <li>Ownership and borrowing</li>
+                        <li><code>unsafe</code></li>
+                        <li>Fearless concurrency</li>
+                        <li>Error messages</li>
+                        <li><code>Error&lt;T,E&gt; / Option&lt;T&gt; / match</code></li>
+                        <li>WebAssembly</li>
+                        <li>Cargo package manager</li>
+                    </ul>
+                </div>
+
+                <div class="col">
+                    <ul>
+                        <li>Structs & Traits & Generics</li>
+                        <li>Functional programming</li>
+                        <li>Type inference</li>
+                        <li><code>let x / let mut x / &x / &mut x </code></li>
+                        <li>Compilation targets</li>
+                        <li>Embedded device</li>
+                        <li>Documentation tests</li>
+                        <li>The Rust Programming Language Book</li>
+                        <li><a href="https://docs.rs/">docs.rs</a> & <a href="https://crates.io/">crates.io</a></li>
+                    </ul>
+                </div>
+            </div>
+            <br/>
+            etc.
+        </section>
+        <section>
+            <h1>Are we there yet?</h1>
+            <img src="assets/rewrite-in-rust.png"/>
+            <aside class="notes">
+                <ul>
+                    <li>Covering some aspects, that might be relevant for choosing Rust</li>
+                </ul>
+
+                References:
+                <ul>
+                    <li>Image source (2023-03-11):
+                        https://www.reddit.com/r/rustjerk/comments/7thl9e/should_you_rewrite_it_in_rust/
+                    </li>
+                </ul>
+            </aside>
+        </section>
+        <section>
+            <section>
+                <h2>Are we there yet? - Maintenance</h2>
+                <h1>🛠️</h1>
+            </section>
+            <section>
+                <h3>Release cycle</h3>
+                <h4>new backward compatible version every 6 weeks</h4>
+                <br/>
+                <div class="container">
+
+                    <div class="col">
+                        <ul>
+                            <li>1.68.0 (2023-03-09)</li>
+                            <li>1.67.1 (2023-02-09)</li>
+                            <li>1.67.0 (2023-01-26)</li>
+                            <li>1.66.1 (2023-01-10)</li>
+                            <li>1.66.0 (2022-12-15)</li>
+                            <li>1.65.0 (2022-11-03)</li>
+                            <li>1.64.0 (2022-09-22)</li>
+                            <li>1.63.0 (2022-08-11)</li>
+                        </ul>
+                    </div>
+
+                    <div class="col">
+                        <ul>
+                            <li>1.62.1 (2022-07-19)</li>
+                            <li>1.62.0 (2022-06-30)</li>
+                            <li>1.61.0 (2022-05-19)</li>
+                            <li>1.60.0 (2022-04-07)</li>
+                            <li>1.59.0 (2022-02-24)</li>
+                            <li>1.58.1 (2022-01-19)</li>
+                            <li>1.58.0 (2022-01-13)</li>
+                            <li>1.57.0 (2021-12-02)</li>
+                        </ul>
+                    </div>
+                </div>
+                <br/>
+                <strong>...</strong>
+            </section>
+            <section>
+                <h3>Editions</h3>
+                <br/>
+                <ul>
+                    <li>Rust 2015</li>
+                    <li>Rust 2018</li>
+                    <li>Rust 2021</li>
+                </ul>
+
+                <aside class="notes">
+                    <ul>
+                        <li>Opt-in</li>
+                        <li>Might require migration</li>
+                    </ul>
+                </aside>
+            </section>
+            <section>
+                <h3>Rust foundation</h3>
+                <img src="assets/rust-foundation.png"/>
+                <aside class="notes">
+                    References:
+                    <ul>
+                        <li>Screenshot (2023-03-11): https://foundation.rust-lang.org/members/</li>
+                    </ul>
+                </aside>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h2>Are we there yet? - Community</h2>
+                <h1>👧🏻👱🏼‍♀️👨🏻👨🏾‍🦱👨🏽👴🏻👨🏼‍🦲👩🏾</h1>
+                <aside class="notes">
+                    <ul>
+                        <li>Are there enough developers?</li>
+                        <li>Will devs learn it?</li>
+                        <li>Are there enough tools?</li>
+                    </ul>
+                </aside>
+            </section>
+            <section>
+                <h3>
+                    <a href="https://survey.stackoverflow.co/2022/#section-most-loved-dreaded-and-wanted-programming-scripting-and-markup-languages">Stack
+                        overflow survey 2022</a> - most loved language</h3>
+                <img src="assets/stack-overflow-2022.png"/>
+                <aside class="notes">
+                    References:
+                    <ul>
+                        <li>Screenshot (2023-03-11):
+                            https://survey.stackoverflow.co/2022/#section-most-loved-dreaded-and-wanted-programming-scripting-and-markup-languages
+                        </li>
+                    </ul>
+                </aside>
+            </section>
+            <section>
+                <h3><a href="https://survey.stackoverflow.co/2022/#most-loved-dreaded-and-wanted-language-want">Stack overflow
+                    survey
+                    2022</a> - most wanted language</h3>
+                <img src="assets/stack-overflow-2022-want.png"/>
+                <aside class="notes">
+                    References:
+                    <ul>
+                        <li>Screenshot (2023-03-11):
+                            https://survey.stackoverflow.co/2022/#most-loved-dreaded-and-wanted-language-want
+                        </li>
+                    </ul>
+                </aside>
+            </section>
+            <section>
+                <h3><a href="https://insights.stackoverflow.com/survey/2021#most-loved-dreaded-and-wanted-language-love-dread">Stack
+                    overflow survey 2021</a> - most loved language</h3>
+                <img src="assets/stack-overflow-2021.png"/>
+                <aside class="notes">
+                    <ul>
+                        <li>Wanted: 5th place</li>
+                    </ul>
+
+                    References:
+                    <ul>
+                        <li>Screenshot (2023-03-11):
+                            https://insights.stackoverflow.com/survey/2021#most-loved-dreaded-and-wanted-language-love-dread
+                        </li>
+                    </ul>
+                </aside>
+            </section>
+            <section>
+                <h3>
+                    <a href="https://insights.stackoverflow.com/survey/2020#technology-most-loved-dreaded-and-wanted-languages-loved">Stack
+                        overflow survey 2020</a> - most loved language</h3>
+                <img src="assets/stack-overflow-2020.png"/>
+                <aside class="notes">
+                    <ul>
+                        <li>Wanted: 5th place</li>
+                    </ul>
+
+                    References:
+                    <ul>
+                        <li>Screenshot (2023-03-11):
+                            https://insights.stackoverflow.com/survey/2020#technology-most-loved-dreaded-and-wanted-languages-loved
+                        </li>
+                    </ul>
+                </aside>
+            </section>
+            <section>
+                <h3><a href="https://insights.stackoverflow.com/survey/2019">Stack overflow survey 2019</a> - most loved language
+                </h3>
+                <img src="assets/stack-overflow-2019.png"/>
+                <aside class="notes">
+                    <ul>
+                        <li>Wanted: 6th place</li>
+                    </ul>
+
+                    References:
+                    <ul>
+                        <li>Screenshot (2023-03-11): https://insights.stackoverflow.com/survey/2019</li>
+                    </ul>
+                </aside>
+            </section>
+            <section>
+                <h3><a href="https://insights.stackoverflow.com/survey/2018">Stack overflow survey 2018</a> - most loved language
+                </h3>
+                <img src="assets/stack-overflow-2018.png" width="40%" height="40%"/>
+                <aside class="notes">
+                    <ul>
+                        <li>Wanted: 8th place</li>
+                    </ul>
+                    References:
+                    <ul>
+                        <li>Screenshot (2023-03-11): https://insights.stackoverflow.com/survey/2018</li>
+                    </ul>
+                </aside>
+            </section>
+            <section>
+                <h3><a href="https://insights.stackoverflow.com/survey/2017">Stack overflow survey 2017</a> - most loved language
+                </h3>
+                <img src="assets/stack-overflow-2017.png" width="35%" height="35%"/>
+                <aside class="notes">
+                    <ul>
+                        <li>Wanted: 10th place</li>
+                    </ul>
+                    References:
+                    <ul>
+                        <li>Screenshot (2023-03-11): https://insights.stackoverflow.com/survey/2017</li>
+                    </ul>
+                </aside>
+            </section>
+            <section>
+                <h3><a href="https://insights.stackoverflow.com/survey/2016">Stack overflow survey 2016</a> - most loved language
+                </h3>
+                <img src="assets/stack-overflow-2016.png"/>
+                <aside class="notes">
+                    References:
+                    <ul>
+                        <li>Screenshot (2023-03-11): https://insights.stackoverflow.com/survey/2016</li>
+                    </ul>
+                </aside>
+            </section>
+            <section>
+                <h3><a href="https://insights.stackoverflow.com/survey/2015">Stack overflow survey 2015</a> - most loved language
+                </h3>
+                <img src="assets/stack-overflow-2015.png"/>
+                <aside class="notes">
+                    References:
+                    <ul>
+                        <li>Screenshot (2023-03-11): https://insights.stackoverflow.com/survey/2015</li>
+                    </ul>
+                </aside>
+            </section>
+            <section>
+                <h3><a href="https://insights.stackoverflow.com/survey">Stack overflow surveys</a></h3>
+                <br/>
+                <div class="container">
+
+                    <div class="col">
+                        <h4>Most loved</h4>
+                        <ul>
+                            <li>2022: 1st place</li>
+                            <li>2021: 1st place</li>
+                            <li>2020: 1st place</li>
+                            <li>2019: 1st place</li>
+                            <li>2018: 1st place</li>
+                            <li>2017: 1st place</li>
+                            <li>2016: 1st place</li>
+                            <li>2015: 3rd place</li>
+                        </ul>
+                    </div>
+
+                    <div class="col">
+                        <h4>Most wanted</h4>
+                        <ul>
+                            <li>2022: 1st place</li>
+                            <li>2021: 5th place</li>
+                            <li>2020: 5th place</li>
+                            <li>2019: 6th place</li>
+                            <li>2018: 8th place</li>
+                            <li>2017: 10th place</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+            <section>
+                <h3>Active open source community</h3>
+                <br/>
+                <div class="container">
+
+                    <div class="col">
+                        <img src="assets/cargo.png" width="40%"/>
+                        <p><a href="https://crates.io/">crates.io</a></p>
+                    </div>
+
+                    <div class="col">
+                        <img src="assets/crate-stat.png"/>
+                        <small>(7th March 2023)</small>
+                    </div>
+                </div>
+                <aside class="notes">
+                    References:
+                    <ul>
+                        <li>Image source (2013-03-11): https://doc.rust-lang.org/cargo/</li>
+                        <li>Screenshot (2023-03-07): https://crates.io/</li>
+                    </ul>
+                </aside>
+            </section>
+            <section>
+                <h3><a href="https://zaiste.net/posts/shell-commands-rust/">Tools in Rust</a></h3>
+                <br/>
+                <br/>
+                <div class="container">
+
+                    <div class="col">
+                        <table>
+                            <thead>
+                            <tr>
+                                <th>Original</th>
+                                <th>Rust version</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>cat</td>
+                                <td>bat</td>
+                            </tr>
+                            <tr>
+                                <td>find</td>
+                                <td>fd</td>
+                            </tr>
+                            <tr>
+                                <td>ps</td>
+                                <td>procs</td>
+                            </tr>
+                            <tr>
+                                <td>sed</td>
+                                <td>sd</td>
+                            </tr>
+                            <tr>
+                                <td>du</td>
+                                <td>dust</td>
+                            </tr>
+                            <tr>
+                                <td>grep</td>
+                                <td>ripgrep</td>
+                            </tr>
+                            <tr>
+                                <td>top</td>
+                                <td>ytop</td>
+                            </tr>
+                            <tr>
+                                <td>cd</td>
+                                <td>zoxide</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="col" style="padding-left: 100px">
+                        <div class="left">
+                            <table>
+                                <thead>
+                                <tr>
+                                    <th>Tool</th>
+                                    <th>Description</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td>starship</td>
+                                    <td>Customizable prompt</td>
+                                </tr>
+                                <tr>
+                                    <td>tokei</td>
+                                    <td>Code statistics</td>
+                                </tr>
+                                <tr>
+                                    <td>hyperfine</td>
+                                    <td>CLI benchmarking tool</td>
+                                </tr>
+                                <tr>
+                                    <td>bandwhich</td>
+                                    <td>CLI network utilization tool</td>
+                                </tr>
+                                <tr>
+                                    <td>grex</td>
+                                    <td>Generate regex from examples</td>
+                                </tr>
+                                <tr>
+                                    <td>delta</td>
+                                    <td>Diff viewer</td>
+                                </tr>
+                                <tr>
+                                    <td>nushell</td>
+                                    <td>Shell implemented in Rust</td>
+                                </tr>
+                                <tr>
+                                    <td>zellij</td>
+                                    <td>Terminal multiplexers</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <aside class="notes">
+                    <ul>
+                        <li>Examples only, not a full list</li>
+                    </ul>
+
+                    References:
+                    <ul>
+                        <li>https://zaiste.net/posts/shell-commands-rust/</li>
+                        <li>https://github.com/zellij-org/zellij</li>
+                    </ul>
+                </aside>
+            </section>
+            <section>
+                <h3><a href="https://www.redox-os.org/">Redox OS</a></h3>
+                <img src="assets/redox-os.png"/>
+                <aside class="notes">
+                    References:
+                    <ul>
+                        <li>https://www.redox-os.org/</li>
+                        <li>Image source (2023-03-11): https://github.com/redox-os/redox</li>
+                    </ul>
+                </aside>
+            </section>
+            <section>
+                <h3><a href="https://twitter.com/solomonstre/status/1111004913222324225?lang=en">Solomon Hykes</a></h3>
+                <br/>
+                <img src="assets/wasm-wasi.png"/>
+                <br/>
+                <small>Mar 27, 2019</small>
+                <aside class="notes">
+                    <ul>
+                        <li>Docker founder</li>
+                    </ul>
+                    References:
+                    <ul>
+                        <li>Image source (2023-03-11): https://twitter.com/solomonstre/status/1111004913222324225?lang=en</li>
+                    </ul>
+                </aside>
+            </section>
+            <section>
+                <h3>Krustlet & Fermyon</h3>
+                <br/>
+                <br/>
+                <div class="container">
+                    <div class="col">
+                        <p>First try: <a href="https://krustlet.dev/">Krustlet</a></p>
+                        <img class="white-bg" src="assets/krustlet.png" width="66%"/>
+                    </div>
+                    <div class="col">
+                        <p>Second try: <a href="https://www.fermyon.com/">Fermyon Cloud</a></p>
+                        <img src="assets/fermyon.png" width="20%"/>
+                    </div>
+                </div>
+                <aside class="notes">
+                    <ul>
+                        <li>By the creator of Helm, Matt Butcher</li>
+                        <li>First krustlet, but failed (kubernetes is too container specific)</li>
+                        <li>Fermyon is based on HashiCorp Nomad</li>
+                    </ul>
+
+                    References:
+                    <ul>
+                        <li>Krustlet logo (2023-03-11): https://krustlet.dev/</li>
+                        <li>Fermyon logo (2023-03-11): https://github.com/fermyon</li>
+                    </ul>
+                </aside>
+            </section>
+            <section>
+                <h3>Docker & Wasm</h3>
+                <br/>
+                <img src="assets/docker-wasm.png"/>
+                <br/>
+                <br/>
+                <blockquote cite="https://www.docker.com/">
+                    <br/>
+                    <h4>WHAT’S NEW</h4>
+                    Docker + Wasm = Awesome!
+                    <br/>
+                    <br/>
+                    Wasm is a new, fast, and light alternative to the Linux/Windows containers you’re using in Docker today — give
+                    it a
+                    try
+                    with the Docker+Wasm Beta.
+                    <br/>
+                    <br/>
+                </blockquote>
+                <aside class="notes">
+                    References:
+                    <ul>
+                        <li>Image source (2023-03-11): https://www.docker.com/</li>
+                        <li>https://www.docker.com/</li>
+                    </ul>
+                </aside>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h2>Are we there yet? - Production ready?</h2>
+                <img src="assets/prod-ready.png" width="45%"/>
+                <aside class="notes">
+                    <ul>
+                        <li>I think so, but not just me</li>
+                    </ul>
+
+                    References:
+                    <ul>
+                        <li>https://www.monkeyuser.com/2018/production-ready/</li>
+                    </ul>
+                </aside>
+            </section>
+            <section>
+                <h2>Meta</h2>
+                <br/>
+                <a href="https://engineering.fb.com/2021/04/29/developer-tools/rust/">A brief history of Rust at Facebook</a>
+                <blockquote cite="https://engineering.fb.com/2021/04/29/developer-tools/rust/">
+                    For developers, Rust offers the performance of older languages like C++ with a heavier focus on code safety.
+                    Today,
+                    there are hundreds of developers at Facebook writing millions of lines of Rust code.
+                </blockquote>
+                <br/>
+                <a href="https://engineering.fb.com/2022/07/27/developer-tools/programming-languages-endorsed-for-server-side-use-at-meta/">Programming
+                    languages endorsed for server-side use at Meta</a>
+                <blockquote
+                        cite="https://engineering.fb.com/2022/07/27/developer-tools/programming-languages-endorsed-for-server-side-use-at-meta/">
+                    Meta’s primary supported server-side languages are Hack, C++, Rust, and Python.
+                </blockquote>
+            </section>
+            <section>
+                <h2>Google</h2>
+                <a href="https://security.googleblog.com/2022/12/memory-safe-languages-in-android-13.html">Memory Safe Languages in
+                    Android
+                    13</a>
+                <blockquote cite="https://security.googleblog.com/2022/12/memory-safe-languages-in-android-13.html">
+                    From 2019 to 2022 it has dropped from 76% down to 35% of Android’s total vulnerabilities. 2022 is the first year
+                    where
+                    memory safety vulnerabilities do not represent a majority of Android’s vulnerabilities.
+                    <br/>...
+                    <br/>In Android 13, about 21% of all new native code (C/C++/Rust) is in Rust.
+                    <br/>...
+                    <br/>To date, there have been zero memory safety vulnerabilities discovered in Android’s Rust code.
+                </blockquote>
+                <br/>
+                <a href="https://security.googleblog.com/2023/01/supporting-use-of-rust-in-chromium.html">Supporting the Use of Rust
+                    in
+                    the
+                    Chromium Project</a>
+                <blockquote cite="https://security.googleblog.com/2023/01/supporting-use-of-rust-in-chromium.html">
+                    We are pleased to announce that moving forward, the Chromium project is going to support the use of third-party
+                    Rust
+                    libraries from C++ in Chromium. To do so, we are now actively pursuing adding a production Rust toolchain to our
+                    build
+                    system. This will enable us to include Rust code in the Chrome binary within the next year.
+                </blockquote>
+            </section>
+            <section>
+                <h2>AWS</h2>
+                <a href="https://aws.amazon.com/blogs/opensource/why-aws-loves-rust-and-how-wed-like-to-help/">Why AWS loves Rust,
+                    and
+                    how
+                    we’d like to help</a>
+                <blockquote cite="https://aws.amazon.com/blogs/opensource/why-aws-loves-rust-and-how-wed-like-to-help/">
+                    <u>Here at AWS, we love Rust</u>, too, because it helps AWS write highly performant, safe infrastructure-level
+                    networking and other systems software. <u>Amazon’s first notable product built with Rust, Firecracker, launched
+                    publicly
+                    in 2018 and provides the open source virtualization technology that powers AWS Lambda</u> and other serverless
+                    offerings. But we <u>also use Rust to deliver services</u> such as <u>Amazon Simple Storage Service (Amazon
+                    S3)</u>,
+                    <u>Amazon
+                        Elastic Compute Cloud (Amazon EC2)</u>, <u>Amazon CloudFront</u>, <u>Amazon Route 53</u>, and more. Recently
+                    we
+                    launched
+                    <u>Bottlerocket, a Linux-based container operating system written in Rust</u>. Our Amazon EC2 team uses Rust as
+                    the
+                    language of choice for new <u>AWS Nitro System components</u>, including sensitive applications such as <u>Nitro
+                    Enclaves</u>.
+                    <br/>
+                    <br/>
+                    <u>Why has Rust proved so popular at AWS and elsewhere? As mentioned, this comes down to Rust’s cardinal
+                        virtues:
+                        performance and reliability.</u>
+                </blockquote>
+            </section>
+            <section>
+                <h2>Rust in Linux Kernel</h2>
+                <a href="https://www.omgubuntu.co.uk/2022/12/linux-kernel-6-1-released-new-features">Linux Kernel 6.1 Released, This
+                    is
+                    What’s New</a>
+                <blockquote cite="https://www.omgubuntu.co.uk/2022/12/linux-kernel-6-1-released-new-features">
+                    A major addition to Linux 6.1 is mainline (experimental) support for Rust, the “multi-paradigm, general-purpose
+                    programming language” snowballing momentum across the open source landscape. Though small, this initial batch of
+                    bringup
+                    makes good on the ambition of letting kernel devs write kernel code in Rust.
+                </blockquote>
+                <br/>
+                <img src="assets/rust-linux-kernel.png"/>
+                <aside class="notes">
+                    References:
+                    <ul>
+                        <li>Image source (2023-03-11): https://www.phoronix.com/news/Rust-Linux-6.3-Changes</li>
+                    </ul>
+                </aside>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h2>Are we there yet? - Ecosystem</h2>
+                <h1>🍃♻️🏞️💚🌱</h1>
+            </section>
+            <section>
+                <h3><a href="https://rustup.rs/">Rustup: the Rust toolchain installer</a></h3>
+                <br/>
+                <h1>🚀</h1>
+            </section>
+            <section>
+                <h3><a href="https://doc.rust-lang.org/cargo/">Cargo</a></h3>
+                <p>Cargo is the Rust package manager.</p>
+                <br/>
+                <img src="assets/cargo.png" width="40%"/>
+                <br/>
+                <small><a href="https://crates.io/">crates.io</a></small>
+                <aside class="notes">
+                    References:
+                    <ul>
+                        <li>Image source (2023-03-11): https://doc.rust-lang.org/cargo/</li>
+                    </ul>
+                </aside>
+            </section>
+            <section>
+                <h3><a href="https://github.com/rust-lang/rust-clippy">Clippy</a></h3>
+                <p>A collection of lints to catch common mistakes and improve your Rust code.</p>
+                <br/>
+                <img src="assets/rust-clippy.png"/>
+                <aside class="notes">
+                    References:
+                    <ul>
+                        <li>Image source (2023-03-11): https://dev.to/cloudx/rust-and-the-hidden-cargo-clippy-2a2e</li>
+                    </ul>
+                </aside>
+            </section>
+            <section>
+                <h3><a href="https://github.com/rust-lang/rustfmt">rustfmt</a></h3>
+                <p>A tool for formatting Rust code according to style guidelines.</p>
+                <img src="assets/formatting.png" width="30%"/>
+                <aside class="notes">
+                    References:
+                    <ul>
+                        <li>Image source (2023-03-11): https://www.monkeyuser.com/2020/schmuck/</li>
+                    </ul>
+                </aside>
+            </section>
+            <section>
+                <h3><a href="https://github.com/rust-lang/rust-analyzer">Rust Analyzer</a></h3>
+                <br/>
+                <img src="assets/rust-analyzer.png"/>
+                <br/>
+                <blockquote cite="https://rust-analyzer.github.io/manual.html">
+                    At its core, rust-analyzer is a library for semantic analysis of Rust code as it changes over time. This manual
+                    focuses
+                    on a specific usage of the library — running it as part of a server that implements the Language Server Protocol
+                    (LSP).
+                    The LSP allows various code editors, like VS Code, Emacs or Vim, to implement semantic features like completion
+                    or
+                    goto
+                    definition by talking to an external language server process.
+                </blockquote>
+                <aside class="notes">
+                    References:
+                    <ul>
+                        <li>https://rust-analyzer.github.io/manual.html</li>
+                    </ul>
+                </aside>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h1>What's the catch?</h1>
+                <br/>
+                <img src="assets/it-is-a-trap.png"/>
+                <aside class="notes">
+                    <ul>
+                        <li>Is everything perfect?</li>
+                    </ul>
+
+                    References:
+                    <ul>
+                        <li>Image source (2023-03-11): https://filmschoolrejects.com/its-a-trap-meme/</li>
+                    </ul>
+                </aside>
+            </section>
+            <section>
+                <h2>Learning Cliff</h2>
+                <br/>
+                <img src="assets/learning-cliff.png" width="40%"/>
+                <aside class="notes">
+                    <ul>
+                        <li>New and complex concepts</li>
+                        <li>Not beginner friendly, but team tries to improve</li>
+                        <li>Need to "unlearn" some things</li>
+                    </ul>
+
+                    References:
+                    <ul>
+                        <li>Image source (2023-03-11):
+                            https://gaming.stackexchange.com/questions/21664/dwarf-fortress-learning-curve
+                        </li>
+                    </ul>
+                </aside>
+            </section>
+            <section>
+                <h2>Learning Materials</h2>
+                <br/>
+                <div class="container">
+                    <div class="col">
+                        <img src="assets/rust-book.png"/>
+                        <p><a href="https://doc.rust-lang.org/book/"><strong>The Rust Programming Language, 2nd Edition</strong></a>
+                        </p>
+                        <p>by Steve Klabnik and Carol Nichols</p>
+                    </div>
+                    <div class="col">
+                        <br/>
+                        <br/>
+                        <br/>
+                        <br/>
+                        <br/>
+                        <ul>
+                            <li><a href="https://doc.rust-lang.org/rust-by-example/">Rust by Example</a></li>
+                            <li><a href="https://google.github.io/comprehensive-rust/">Comprehensive Rust 🦀 by Google</a></li>
+                            <li><a href="https://www.zero2prod.com/index.html/">Zero To Production In Rust</a></li>
+                            <li><a href="https://this-week-in-rust.org/">This Week in Rust</a></li>
+                            <li>Error Messages, <a href="https://docs.rs/">docs.rs</a>, YouTube, Blogs, etc.</li>
+                        </ul>
+                    </div>
+                </div>
+                <aside class="notes">
+                    <ul>
+                        <li>Free books and documentation are helpful</li>
+                        <li>Still not easy</li>
+                    </ul>
+
+                    References:
+                    <ul>
+                        <li>Image source (2023-03-11): https://nostarch.com/rust-programming-language-2nd-edition</li>
+                    </ul>
+                </aside>
+            </section>
+            <section>
+                <h2>Fighting the borrow checker</h2>
+                <h1>🤼‍♂️🤼‍♀️🏆</h1>
+                <aside class="notes">
+                    <ul>
+                        <li>It gets easier</li>
+                        <li>If it compiles, most of the time it works as expected</li>
+                    </ul>
+                </aside>
+            </section>
+            <section>
+                <h2>Compilation time</h2>
+                <br/>
+                <img src="assets/compilation-time.png" width="40%"/>
+                <aside class="notes">
+                    <ul>
+                        <li>Checks compile time takes lot of time</li>
+                        <li>Always improving, but still slow</li>
+                    </ul>
+
+                    References:
+                    <ul>
+                        <li>Image source (2023-03-11): https://xkcd.com/303/</li>
+                    </ul>
+                </aside>
+            </section>
+            <section>
+                <h2>Types</h2>
+                <br/>
+                <div class="container">
+                    <div class="col">
+                        <ul>
+                            <li><code>&T</code></li>
+                            <li><code>&mut T</code></li>
+                            <li><code>Box&lt;T&gt;</code></li>
+                            <li><code>Rc&lt;T&gt;</code></li>
+                            <li><code>Cell&lt;T&gt;</code></li>
+                        </ul>
+                    </div>
+                    <div class="col">
+                        <ul>
+                            <li><code>RefCell&lt;T&gt;</code></li>
+                            <li><code>Ref&lt;T&gt;</code></li>
+                            <li><code>RefMut&lt;T&gt;</code></li>
+                            <li><code>Weak&lt;T&gt;</code></li>
+                        </ul>
+                    </div>
+                    <div class="col">
+                        <ul>
+                            <li><code>Rc&lt;RefCell&lt;T&gt;&gt;</code></li>
+                            <li><code>Mutex&lt;T&gt;</code></li>
+                            <li><code>Arc&lt;T&gt;</code></li>
+                            <li><code>Arc&lt;Mutex&lt;T&gt;&gt;</code></li>
+                        </ul>
+                    </div>
+                </div>
+                <br/>
+                <code>...</code>
+                <aside class="notes">
+                    <ul>
+                        <li>Types sometimes can be overwhelming</li>
+                        <li>E.g.: smart pointers</li>
+                    </ul>
+                </aside>
+            </section>
+            <section>
+                <h2>Types</h2>
+                <p><a href="https://github.com/usagi/rust-memory-container-cs">Rust Memory Container Cheat-sheet</a></p>
+                <img src="assets/rust-memory-container-cs-1280x720-dark-back-high-contrast.png"/>
+                <aside class="notes">
+                    <ul>
+                        <li>Cheat sheets can help, but still complicated</li>
+                    </ul>
+
+                    References:
+                    <ul>
+                        <li>Image source (2023-03-11): https://github.com/usagi/rust-memory-container-cs</li>
+                    </ul>
+                </aside>
+            </section>
+            <section>
+                <h2>String Types</h2>
+                <a href="https://dev.to/cthutu/rust-8-strings-53o">Rust #8: Strings</a>
+                <br/>
+                <br/>
+                <div class="container">
+                    <div class="col">
+                        <ul>
+                            <li><code>String</code></li>
+                            <li><code>OsString</code></li>
+                            <li><code>CString</code></li>
+                            <li><code>PathBuf</code></li>
+                            <li><code>Cow&lt;T&gt;</code></li>
+                        </ul>
+                    </div>
+                    <div class="col">
+                        <ul>
+                            <li><code>&str</code></li>
+                            <li><code>&OsStr</code></li>
+                            <li><code>&CStr</code></li>
+                            <li><code>&Path</code></li>
+                        </ul>
+                    </div>
+                </div>
+                <aside class="notes">
+                    <ul>
+                        <li>Another example</li>
+                        <li>Most of the time you do not need them</li>
+                        <li>When you need it, you need to spend time on learning it</li>
+                    </ul>
+                </aside>
+            </section>
+            <section>
+                <h2>Async / Await</h2>
+                <aside class="notes">
+                    <ul>
+                        <li>Sometimes feels overcomplicated</li>
+                        <li>Documentation is improving, but could be better</li>
+                        <li>Still no async traits (only crate support)</li>
+                    </ul>
+                </aside>
+            </section>
+        </section>
+        <section>
+            <h1>Summary</h1>
+            <br/>
+            <ul>
+                <li>Rust is a fast and efficient language</li>
+                <li>Friendly and eager community</li>
+                <li>Supported by big companies</li>
+                <li>Lot of potential (Linux Kernel, Embedded Devices, WASM Containers, etc.)</li>
+            </ul>
+            <br/>
+            <br/>
+            <br/>
+            <img src="assets/ferris-bye.png">
+            <br/>
+            We hope you give it a try
+            <aside class="notes">
+                <ul>
+                    <li>It is just awesome to write Rust code</li>
+                </ul>
+            </aside>
+        </section>
+        <section style="text-align: left;">
+            <h1>References</h1>
+            <br/>
+            <p>Presentation engine: <a href="https://revealjs.com/">reveal.js (4.4.0)</a></h3>
+                <br/>
+                <br/>
+            <p>For each slide, references can be found</h4>
+            <ul>
+                <li>as a link on the slide or,</li>
+                <li>mentioned in the notes on the "speaker view" (can be activated by pressing the 's' key)</li>
+            </ul>
+            <br/>
+            <br/>
+            <br/>
+            <div class="container aligned">
+                <div class="col"><a href="https://mracsko.com/presentations">https://mracsko.com/presentations</a></div>
+                <div class="col"><img src="assets/pres-qr.png" width="30%"></div>
+            </div>
+            <aside class="notes">
+                References:
+                <ul>
+                    <li>https://revealjs.com/</li>
+                    <li>https://mracsko.com/presentations</li>
+                    <li>QR code generated with https://www.the-qrcode-generator.com/</li>
+                </ul>
+            </aside>
+        </section>
+        <section>
+            <h1>🦀🦀🦀🦀🦀🦀🦀🦀🦀🦀🦀🦀🦀</h1>
+            <br/>
+            <h1>🦀 Thank you for your attention 🦀</h1>
+            <br/>
+            <h1>🦀🦀🦀🦀🦀🦀🦀🦀🦀🦀🦀🦀🦀</h1>
+        </section>
+    </div>
+</div>
+
+<script src="reveal.js-4.4.0/dist/reveal.js"></script>
+<script src="reveal.js-4.4.0/plugin/notes/notes.js"></script>
+<script src="reveal.js-4.4.0/plugin/markdown/markdown.js"></script>
+<script src="reveal.js-4.4.0/plugin/highlight/highlight.js"></script>
+<script>
+    Reveal.initialize({
+        slideNumber: 'c',
+        hash: true,
+        navigationMode: 'linear',
+        plugins: [RevealMarkdown, RevealHighlight, RevealNotes],
+        width: 1920,
+        height: 1080,
+        margin: 0.04,
+        totalTime: 2700, // 45 mins
+    });
+</script>
+</body>
+</html>

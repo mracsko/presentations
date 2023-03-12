@@ -1,0 +1,39 @@
+img.white-bg {
+    background-color: #fff;
+}
+
+div.aligned {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+span.aligned {
+    margin: 30px;
+}
+
+.reveal pre code {
+    display: block;
+    padding: 5px;
+    overflow: auto;
+    max-height: 700px;
+    word-wrap: normal;
+}
+
+div.left {
+    text-align: left;
+}
+
+.container {
+    display: flex;
+}
+
+.col {
+    flex: 1;
+}
+
+.source {
+    text-align: right;
+    font-size: 0.4em;
+    bottom: 0
+}
