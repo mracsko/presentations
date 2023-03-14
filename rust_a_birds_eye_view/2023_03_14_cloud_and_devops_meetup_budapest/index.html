@@ -262,10 +262,6 @@ Hello, world!
                     </ul>
                 </aside>
             </section>
-            <!--
-                https://filia-aleks.medium.com/aws-lambda-battle-2021-performance-comparison-for-all-languages-c1b441005fd1
-                https://levelup.gitconnected.com/which-is-faster-rust-or-c-lets-find-out-who-is-the-usain-bolt-87495c774c8
-            -->
         </section>
         <section>
             <section>
@@ -631,7 +627,7 @@ help: use `!` to invoke the macro
                 <br/>
                 <br/>
                 <pre><code class="language-plaintext" data-trim data-line-numbers data-noescape>
-error[E0277]: `Rc<Mutex<i32>>` cannot be sent between threads safely
+error[E0277]: `Rc&ltMutex&lti32&gt&gt` cannot be sent between threads safely
   --> src/main.rs:11:36
    |
 11 |           let handle = thread::spawn(move || {
@@ -644,9 +640,9 @@ error[E0277]: `Rc<Mutex<i32>>` cannot be sent between threads safely
 13 | |
 14 | |             *num += 1;
 15 | |         });
-   | |_________^ `Rc<Mutex<i32>>` cannot be sent between threads safely
+   | |_________^ `Rc&ltMutex&lti32&gt&gt` cannot be sent between threads safely
    |
-   = help: within `[closure@src/main.rs:11:36: 11:43]`, the trait `Send` is not implemented for `Rc<Mutex<i32>>`
+   = help: within `[closure@src/main.rs:11:36: 11:43]`, the trait `Send` is not implemented for `Rc&ltMutex&lti32&gt&gt`
 note: required because it's used within this closure
   --> src/main.rs:11:36
    |
@@ -792,7 +788,7 @@ match p {
                 <pre><code class="language-rust" data-trim data-line-numbers data-noescape>
 fn main() {
     let string = String::from("invalid value");
-    let value = string.parse::<i32>();
+    let value = string.parse::&lti32&gt();
     let value = match value {
         Ok(x) => x,
         Err(_) => 0,
@@ -1482,7 +1478,7 @@ Did our date match? true</code></pre>
                 </aside>
             </section>
             <section>
-                <h2>Meta</h2>
+                <h3>Meta</h3>
                 <br/>
                 <a href="https://engineering.fb.com/2021/04/29/developer-tools/rust/">A brief history of Rust at Facebook</a>
                 <blockquote cite="https://engineering.fb.com/2021/04/29/developer-tools/rust/">
@@ -1499,7 +1495,7 @@ Did our date match? true</code></pre>
                 </blockquote>
             </section>
             <section>
-                <h2>Google</h2>
+                <h3>Google</h3>
                 <a href="https://security.googleblog.com/2022/12/memory-safe-languages-in-android-13.html">Memory Safe Languages in
                     Android
                     13</a>
@@ -1526,7 +1522,7 @@ Did our date match? true</code></pre>
                 </blockquote>
             </section>
             <section>
-                <h2>AWS</h2>
+                <h3>AWS</h3>
                 <a href="https://aws.amazon.com/blogs/opensource/why-aws-loves-rust-and-how-wed-like-to-help/">Why AWS loves Rust,
                     and
                     how
@@ -1554,7 +1550,7 @@ Did our date match? true</code></pre>
                 </blockquote>
             </section>
             <section>
-                <h2>Rust in Linux Kernel</h2>
+                <h3>Rust in Linux Kernel</h3>
                 <a href="https://www.omgubuntu.co.uk/2022/12/linux-kernel-6-1-released-new-features">Linux Kernel 6.1 Released, This
                     is
                     What’s New</a>
@@ -1910,7 +1906,7 @@ Did our date match? true</code></pre>
         width: 1920,
         height: 1080,
         margin: 0.04,
-        totalTime: 2700, // 45 mins
+        totalTime: 3300, // 55 mins
     });
 </script>
 </body>
